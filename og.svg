@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#020617"/>
+      <stop offset="1" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="0.5" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.8" cy="0.2" r="0.6">
+      <stop offset="0" stop-color="#3b82f6" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(80, 90)">
+    <rect width="88" height="88" rx="22" fill="#0f172a" stroke="url(#accent)" stroke-width="2"/>
+    <text x="44" y="58" font-family="Inter, sans-serif" font-size="40" font-weight="700" text-anchor="middle" fill="url(#accent)">CS</text>
+  </g>
+  <text x="80" y="330" font-family="Inter, sans-serif" font-size="34" font-weight="600" fill="#94a3b8" letter-spacing="1">CHANDNI SONI</text>
+  <text x="80" y="410" font-family="Inter, sans-serif" font-size="66" font-weight="700" fill="#f8fafc">Helping brands grow through</text>
+  <text x="80" y="486" font-family="Inter, sans-serif" font-size="66" font-weight="700" fill="url(#accent)">creative marketing.</text>
+  <text x="80" y="556" font-family="Inter, sans-serif" font-size="28" font-weight="400" fill="#cbd5e1">Marketing Professional · Brand Strategist · Content Creator · UK</text>
+</svg>
