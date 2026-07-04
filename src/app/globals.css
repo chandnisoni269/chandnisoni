@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* next-themes toggles the `.dark` class on <html>. */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ *
+ *  Design tokens — a premium slate / electric-blue system.
+ *  Light and dark are authored as semantic variables so every
+ *  component reads the same names in both themes.
+ * ------------------------------------------------------------------ */
+:root {
+  --background: #ffffff;
+  --surface: #f8fafc;         /* slate-50  — raised panels           */
+  --surface-2: #f1f5f9;       /* slate-100 — deeper wells            */
+  --foreground: #0b1220;      /* near-black slate — headings         */
+  --body: #1f2937;            /* gray-800  — long-form body text     */
+  --muted: #6b7280;           /* gray-500  — captions, meta          */
+  --card: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.14);
+  --accent: #2563eb;          /* blue-600 for AA contrast on white   */
+  --accent-bright: #3b82f6;   /* blue-500 — glows, gradients         */
+  --accent-foreground: #ffffff;
+  --success: #16a34a;
+  --ring: rgba(37, 99, 235, 0.45);
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --shadow-color: 220 40% 20%;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: #020617;       /* slate-950                          */
+  --surface: #0b1220;
+  --surface-2: #0f172a;        /* slate-900                          */
+  --foreground: #f8fafc;       /* slate-50                           */
+  --body: #cbd5e1;             /* slate-300                          */
+  --muted: #94a3b8;            /* slate-400                          */
+  --card: #0b1220;
+  --border: rgba(148, 163, 184, 0.12);
+  --border-strong: rgba(148, 163, 184, 0.2);
+  --accent: #3b82f6;           /* brighter on dark                   */
+  --accent-bright: #60a5fa;
+  --accent-foreground: #030712;
+  --success: #22c55e;
+  --ring: rgba(96, 165, 250, 0.5);
+
+  --glass-bg: rgba(11, 18, 32, 0.6);
+  --glass-border: rgba(148, 163, 184, 0.14);
+  --shadow-color: 220 60% 2%;
+}
+
+/* Map semantic variables to Tailwind color/utility namespaces. */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+  --radius-2xl: calc(var(--radius) + 1rem);
+
+  --shadow-soft: 0 1px 2px hsl(var(--shadow-color) / 0.04),
+    0 8px 24px hsl(var(--shadow-color) / 0.06);
+  --shadow-lift: 0 2px 4px hsl(var(--shadow-color) / 0.06),
+    0 24px 48px -12px hsl(var(--shadow-color) / 0.18);
+
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--body);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Honour users who prefer fewer animations. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Reusable primitives
+ * ------------------------------------------------------------------ */
+@layer components {
+  .container-edge {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-edge { padding-inline: 2rem; }
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    backdrop-filter: saturate(180%) blur(16px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--foreground) 0%,
+      var(--foreground) 40%,
+      var(--accent-bright) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .accent-gradient {
+    background: linear-gradient(120deg, var(--accent-bright), #8b5cf6 55%, #06b6d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Subtle dotted grid backdrop for section wells. */
+  .bg-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--muted) 45%, transparent) 1px,
+      transparent 0
+    );
+    background-size: 32px 32px;
+  }
+
+  .hairline {
+    border: 1px solid var(--border);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Keyframes
+ * ------------------------------------------------------------------ */
+@keyframes aurora {
+  0%   { transform: translate3d(-8%, -4%, 0) scale(1); }
+  50%  { transform: translate3d(6%, 6%, 0) scale(1.15); }
+  100% { transform: translate3d(4%, -6%, 0) scale(1.05); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+/* Slim, refined scrollbar. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 40%, transparent);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--muted) 65%, transparent);
+  background-clip: content-box;
+}
