@@ -1,13 +1,11 @@
-# Pages "Source" is "Deploy from a branch" (main / root). The legacy builder serves
-# the pre-built static export committed to the branch root; .nojekyll at the root
-# disables Jekyll so the _next/ asset folder (and index.html) are served as-is and
-# README.md is never rendered as the homepage. This Actions workflow is manual-only
-# so it does not race the legacy builder for the Pages environment. To switch to a
-# clean Actions-based deploy, set Settings → Pages → Source → "GitHub Actions" and
-# re-add the push trigger here.
+# Pages Source is "GitHub Actions" (build_type: workflow). This workflow builds the
+# Next.js static export and deploys ./out directly — no Jekyll, so the _next/ asset
+# folder is preserved. It is the single deployer; the branch root holds source only.
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
