@@ -1,8 +1,14 @@
+# NOTE: Pages "Source" is set to "Deploy from a branch" (main / root), which runs
+# an automatic legacy build on every push. That legacy build is the live deployer
+# and serves the pre-built static export committed to the branch root (.nojekyll
+# disables Jekyll so _next/ assets load). Running this Actions workflow on push too
+# makes both deployments race for the Pages environment ("Deployment failed, try
+# again later"). So this workflow is manual-only. To use it as the real deployer,
+# an admin must set Settings → Pages → Source → "GitHub Actions", then re-add the
+# push trigger below.
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
